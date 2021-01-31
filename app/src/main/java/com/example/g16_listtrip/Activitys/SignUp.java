@@ -40,49 +40,58 @@ public class SignUp extends AppCompatActivity {
         edtemaildk = (EditText) findViewById(R.id.edtemaildk);
         edttkdk = (EditText) findViewById(R.id.edttkdk);
         edtmkdk = (EditText) findViewById(R.id.edtmkdk);
+        edtnhaplai = (EditText) findViewById(R.id.edtnhaplai);
     }
 
     public void signup(View v)
-    {  try {
-        mData = FirebaseDatabase.getInstance().getReference("USER").child(edttkdk.getText().toString().trim());
-        mData.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.getValue() == null) {
-                    Accounts acc = new Accounts();
-                    acc.username = edttkdk.getText().toString().trim();
-                    acc.password = edtmkdk.getText().toString().trim();
-                    acc.email = edtemaildk.getText().toString().trim();
-                    mData.setValue(acc, new DatabaseReference.CompletionListener() {
-                        @Override
-                        public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                            if (error == null) {
-                                Toast.makeText(SignUp.this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(SignUp.this, SignIn.class);
-                                Bundle bun = new Bundle();
-                                bun.putString("tentk", edttkdk.getText().toString().trim());
-                                bun.putString("mkdk", edtmkdk.getText().toString().trim());
-                                intent.putExtras(bun);
-                                startActivity(intent);
-                            }
-                            else {
-                                Toast.makeText(SignUp.this, ""+error.toString(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }catch (Exception ex)
     {
-        Toast.makeText(this, ""+ex.getMessage(), Toast.LENGTH_SHORT).show();
+        if(edtmkdk.getText().toString().equals(edtnhaplai.getText().toString()))
+        {
+            Signup();
+        } else {
+            Toast.makeText(this, "Mật khẩu nhập lại không đúng!", Toast.LENGTH_SHORT).show();
+        }
     }
+    public void Signup() {
+        try {
+            mData = FirebaseDatabase.getInstance().getReference("USER").child(edttkdk.getText().toString().trim());
+            mData.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.getValue() == null) {
+                        Accounts acc = new Accounts();
+                        acc.username = edttkdk.getText().toString().trim();
+                        acc.password = edtmkdk.getText().toString().trim();
+                        acc.email = edtemaildk.getText().toString().trim();
+                        mData.setValue(acc, new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                if (error == null) {
+                                    Toast.makeText(SignUp.this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(SignUp.this, SignIn.class);
+                                    Bundle bun = new Bundle();
+                                    bun.putString("tentk", edttkdk.getText().toString().trim());
+                                    bun.putString("mkdk", edtmkdk.getText().toString().trim());
+                                    intent.putExtras(bun);
+                                    startActivity(intent);
+                                }
+                                else {
+                                    Toast.makeText(SignUp.this, ""+error.toString(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                }
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }catch (Exception ex)
+        {
+            Toast.makeText(this, ""+ex.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

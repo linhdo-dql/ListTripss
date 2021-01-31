@@ -53,6 +53,8 @@ public class ForgetPassword extends AppCompatActivity {
         if(edtcapcha.getText().toString().trim().equals(txtCap.getText()))
         {
             fpRefer();
+        }else {
+            Toast.makeText(this, "Mã xác thực không đúng!", Toast.LENGTH_SHORT).show();
         }
     }
     public void fpRefer() {

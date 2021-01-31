@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activitys.SignIn"
+    android:background="@drawable/nen"
+    android:fontFamily="@font/robotocondensedbold"
+    android:orientation="vertical">
+    <ImageView
+        android:id="@+id/frmtitle"
+        android:layout_marginTop="30dp"
+        android:layout_width="330dp"
+        android:layout_height="150dp"
+        android:background="@drawable/logo"
+        android:layout_centerHorizontal="true"
+        />
+    <RelativeLayout
+        android:id="@+id/formdn"
+        android:layout_below="@id/frmtitle"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        >
+        <TextView
+            android:id="@+id/frmtitle"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Đăng nhập"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:textColor="#76FFFA"
+            android:fontFamily="@font/robotocondensedbold"
+            tools:layout_editor_absoluteX="176dp"
+            tools:layout_editor_absoluteY="57dp"
+            android:gravity="center_horizontal"
+            android:layout_centerHorizontal="true"
+            tools:targetApi="jelly_bean"
+            tools:ignore="DuplicateIds"
+            android:shadowColor="#000000"
+            android:shadowDx="2"
+            android:shadowDy="1"
+            android:shadowRadius="2"/>
+
+        <EditText
+            android:id="@+id/edttk"
+            android:layout_width="300dp"
+            android:layout_height="52dp"
+            android:layout_below="@id/frmtitle"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/editext"
+            android:cursorVisible="true"
+            android:focusable="auto"
+            android:focusableInTouchMode="true"
+            android:fontFamily="@font/robotocondenseditalic"
+            android:freezesText="true"
+            android:hint="Tài khoản"
+            android:inputType="text"
+            android:maxLines="1"
+            android:orientation="vertical"
+            android:paddingLeft="55dp"
+            tools:targetApi="jelly_bean" />
+        <ImageView
+            android:id="@+id/iconusername"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/frmtitle"
+            android:layout_marginTop="45dp"
+            android:background="@mipmap/username"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp" />
+
+        <EditText
+            android:id="@+id/edtmk"
+            android:layout_width="300dp"
+            android:layout_height="52dp"
+            android:layout_below="@id/edttk"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:maxLines="1"
+            android:background="@drawable/editext"
+            android:fontFamily="@font/robotocondenseditalic"
+            android:freezesText="true"
+            android:hint="Mật khẩu"
+            android:inputType="textPassword"
+            android:orientation="vertical"
+            android:paddingLeft="55dp"
+            tools:targetApi="jelly_bean" />
+        <ImageView
+            android:id="@+id/iconpassword"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/edttk"
+            android:layout_marginTop="35dp"
+            android:background="@mipmap/password"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp" />
+        <ImageView
+            android:id="@+id/showpass"
+            android:layout_width="25dp"
+            android:layout_height="20dp"
+            android:background="@mipmap/showpass"
+            android:layout_below="@id/edttk"
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="45dp"/>
+        <Button
+            android:id="@+id/btnlogin"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:background="@drawable/button"
+            android:text="Đăng nhập"
+            android:textColor="#ffffff"
+            android:textSize="18dp"
+            android:fontFamily="@font/robotocondensedbold"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/container_signin"
+            android:layout_centerHorizontal="true"
+            android:onClick="signin"
+            />
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_below="@id/edtmk"
+            android:checked="true"
+            android:text="Nhớ đăng nhập."
+            android:textColor="#76FFFA"
+            android:layout_marginLeft="60dp"
+            android:fontFamily="@font/robotocondensedbold"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"
+            />
+
+        <TextView
+            android:id="@+id/quenmk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edtmk"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/robotocondensedbold"
+            android:linksClickable="true"
+            android:text="@string/quenmk"
+            android:textColor="#76FFFA"
+            android:textColorLink="#FFAB00" />
+        <LinearLayout
+            android:id="@+id/container_signin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/quenmk"
+            android:layout_centerInParent="true">
+            <TextView
+                android:id="@+id/ttdk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chưa có tài khoản? "
+                android:layout_below="@id/quenmk"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/robotocondensedbold"
+                android:textColor="#76FFFA"/>
+
+            <TextView
+                android:id="@+id/signin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/ttdk"
+                android:fontFamily="@font/robotocondensedbold"
+                android:text="@string/dangky"
+                android:textColor="#76FFFA" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/or"
+            android:layout_below="@id/btnlogin"
+            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:text="Hoặc"
+            android:textColor="#76FFFA"
+            android:fontFamily="@font/robotocondensedbold"
+
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"/>
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/linkfb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/or"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:onClick="fbsignin"/>
+
+    </RelativeLayout>
+</RelativeLayout>

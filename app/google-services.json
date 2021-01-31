@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "660840145779",
+    "project_id": "listtrip-acb24",
+    "storage_bucket": "listtrip-acb24.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660840145779:android:3882f6e3c4905732addb06",
+        "android_client_info": {
+          "package_name": "com.example.g16_listtrip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660840145779-dgj7ahf1j07assk1gq9fa400lal1ga17.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnkZusmbQf0vqgvUQITQpFplhAlwhmfrc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660840145779-dgj7ahf1j07assk1gq9fa400lal1ga17.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

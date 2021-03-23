@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +26,7 @@ public class ForgetPassword extends AppCompatActivity {
     int ranCap = 0;
     Button sendqmk;
     EditText edtqmktk, edtqmkemail, edtcapcha;
-    TextView txtCap;
+    TextView txtCap,txtnotify;
     DatabaseReference mData;
 
 
@@ -38,6 +39,7 @@ public class ForgetPassword extends AppCompatActivity {
     }
     public void getView() {
         txtCap = (TextView) findViewById(R.id.ranCap);
+        txtnotify = (TextView) findViewById(R.id.notifyqmk);
         edtqmkemail = (EditText) findViewById(R.id.edtemailqmk);
         edtqmktk = (EditText) findViewById(R.id.edttkqmk);
         edtcapcha = (EditText) findViewById(R.id.edtcapchaqmk);
@@ -50,11 +52,12 @@ public class ForgetPassword extends AppCompatActivity {
     }
     public void fgPass(View view)
     {
+        txtnotify.setText("");
         if(edtcapcha.getText().toString().trim().equals(txtCap.getText()))
         {
             fpRefer();
         }else {
-            Toast.makeText(this, "Mã xác thực không đúng!", Toast.LENGTH_SHORT).show();
+            txtnotify.setText("Mã xác thực không khớp!");
         }
     }
     public void fpRefer() {
@@ -94,7 +97,8 @@ public class ForgetPassword extends AppCompatActivity {
                     });
                 }
                 else {
-                    Toast.makeText(ForgetPassword.this, "Tài khoản không tồn tại!", Toast.LENGTH_SHORT).show();
+                    reForm();
+                    txtnotify.setText("Tài khoản không tồn tại!");
                 }
             }
 

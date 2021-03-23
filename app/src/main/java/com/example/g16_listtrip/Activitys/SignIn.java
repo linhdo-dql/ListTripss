@@ -1,8 +1,5 @@
 package com.example.g16_listtrip.Activitys;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +9,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.g16_listtrip.DoiTuong.Accounts;
 import com.example.g16_listtrip.R;
@@ -37,7 +37,7 @@ import com.google.firebase.database.ValueEventListener;
 public class SignIn extends AppCompatActivity implements View.OnClickListener {
     private static final int RC_SIGN_IN = 1102 ;
     private static final String TAG = "Lỗi";
-    TextView txtdangky, txtqmk;
+    TextView txtdangky, txtqmk, txtnotify;
     ImageView showpass;
     EditText edttk,edtmk;
     DatabaseReference mData;
@@ -66,6 +66,7 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
     public void getView() {
         txtdangky = (TextView) findViewById(R.id.signin);
         txtqmk = (TextView) findViewById(R.id.quenmk);
+        txtnotify = (TextView) findViewById(R.id.notifydn);
         showpass = (ImageView) findViewById(R.id.showpass);
         edttk = (EditText) findViewById(R.id.edttk);
         edtmk = (EditText) findViewById(R.id.edtmk);
@@ -104,7 +105,8 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.getValue() == null) {
-                    Toast.makeText(SignIn.this, "Tài khoản hoặc mật khẩu không chính xác!", Toast.LENGTH_SHORT).show();
+                    refrm();
+                    txtnotify.setText("Tài khoản hoặc Mật khẩu không chính xác!");
                 }
                 else {
                     Accounts accounts = snapshot.getValue(Accounts.class);
@@ -112,7 +114,8 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
                         startActivity(new Intent(SignIn.this, MainActivity.class));
                     }
                     else {
-                        Toast.makeText(SignIn.this, "Mật khẩu sai!", Toast.LENGTH_SHORT).show();
+                        edtmk.setText("");
+                        txtnotify.setText("Mật khẩu sai!");
                     }
                 }
             }
@@ -122,6 +125,10 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
 
             }
         });
+    }
+    public void refrm() {
+        edttk.setText("");
+        edtmk.setText("");
     }
     public void fbsignin(View view)
     {
@@ -157,9 +164,6 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
         callbackManager.onActivityResult(requestCode, resultCode, data);
         //
 
-    }
-
-    private void firebaseAuthWithGoogle(String idToken) {
     }
 
     @Override

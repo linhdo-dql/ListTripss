@@ -6,4 +6,11 @@
     <string name="dangky"><u>Đăng Ký</u></string>
     <string name="dieukhoan"><u>Điều khoản dịch vụ</u></string>
     <string name="chinhsach"><u>Chính sách bảo mật</u></string>
+    <string name="title_activity_home">Home</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="title_activity_main2">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

@@ -7,5 +7,10 @@
         <item name="colorAccent">@color/colorAccent</item>
 
     </style>
+    <style name="TextStyle" parent="@android:style/TextAppearance">
+        <item name="android:textSize">20sp</item>
+        <item name="textInputStyle">@style/Widget.Design.TextInputLayout</item>
+        <item name="android:textColor">#aacbb4</item>
+    </style>
 
 </resources>

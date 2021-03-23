@@ -1,24 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.g16_listtrip">
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <queries> <package android:name="com.facebook.katana" /> </queries>
-     <application
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <queries>
+        <package android:name="com.facebook.katana" />
+    </queries>
+
+    <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        android:theme="@style/Theme.Design.Light.NoActionBar">
 
-         <meta-data
-             android:name="com.google.android.gms.ads.APPLICATION_ID"
-             android:value="ca-app-pub-9548294853824457~6262209723"/>
-         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-9548294853824457~6262209723" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
         <activity android:name=".Activitys.Introoooo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,12 +31,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-         <activity android:name=".Activitys.ForgetPassword" />
-        <activity android:name=".Activitys.SignUp">
-
-        </activity>
+        <activity android:name=".Activitys.ForgetPassword" />
+        <activity android:name=".Activitys.SignUp" />
         <activity android:name=".Activitys.SignIn" />
-        <activity android:name=".Activitys.MainActivity" >
+        <activity android:name=".Activitys.MainActivity">
 
         </activity>
     </application>

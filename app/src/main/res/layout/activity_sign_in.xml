@@ -74,7 +74,17 @@
             android:background="@mipmap/username"
             android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp" />
-
+        <TextView
+            android:id="@+id/notifydn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/container_signin"
+            android:textColor="#ffff00"
+            android:fontFamily="@font/robotocondensedbold"
+            android:layout_marginLeft="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10px"
+            />
         <EditText
             android:id="@+id/edtmk"
             android:layout_width="300dp"
@@ -120,7 +130,7 @@
             android:textColor="#ffffff"
             android:textSize="18dp"
             android:fontFamily="@font/robotocondensedbold"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:layout_below="@id/container_signin"
             android:layout_centerHorizontal="true"
             android:onClick="signin"

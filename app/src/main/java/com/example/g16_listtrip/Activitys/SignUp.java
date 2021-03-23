@@ -1,15 +1,15 @@
 package com.example.g16_listtrip.Activitys;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.g16_listtrip.DoiTuong.Accounts;
 import com.example.g16_listtrip.R;
@@ -27,11 +27,8 @@ public class SignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        try {
             getView();
-        }catch (Exception ex) {
-            Toast.makeText(this, ""+ex.getMessage(), Toast.LENGTH_SHORT).show();
-        }
+
 
     }
 
@@ -53,7 +50,6 @@ public class SignUp extends AppCompatActivity {
         }
     }
     public void Signup() {
-        try {
             mData = FirebaseDatabase.getInstance().getReference("USER").child(edttkdk.getText().toString().trim());
             mData.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -81,6 +77,9 @@ public class SignUp extends AppCompatActivity {
                             }
                         });
                     }
+                    else {
+                        Toast.makeText(SignUp.this, "Tài khoản đã tồn tại!", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
                 @Override
@@ -88,10 +87,6 @@ public class SignUp extends AppCompatActivity {
 
                 }
             });
-        }catch (Exception ex)
-        {
-            Toast.makeText(this, ""+ex.getMessage(), Toast.LENGTH_SHORT).show();
-        }
     }
 
 }

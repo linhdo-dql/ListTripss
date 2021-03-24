@@ -19,7 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class SignUp extends AppCompatActivity {
+public class  SignUp extends AppCompatActivity {
     DatabaseReference mData;
     EditText edtemaildk, edttkdk, edtmkdk, edtnhaplai;
     Button btnDk;

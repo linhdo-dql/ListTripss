@@ -16,29 +16,43 @@
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
         app:logoDescription="@string/app_name">
         <RelativeLayout
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <ImageView
-                android:layout_width="120dp"
+                android:layout_width="100dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/logo"
+                android:background="@drawable/logo"
                 android:layout_alignParentLeft="true"/>
-
-            <ImageButton
-                android:id="@+id/avatar"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/nen21"
+            <TextView
+                android:id="@+id/ttk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/seach"/>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/favatar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:cardCornerRadius="10dp"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="30dp"
-                android:layout_alignParentRight="true"/>
+                android:layout_alignParentRight="true">
+            <ImageButton
+                android:id="@+id/avatar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/nen2"
+                />
+            </androidx.cardview.widget.CardView>
             <ImageView
-                android:layout_toLeftOf="@id/avatar"
+                android:id="@+id/seach"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/search"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/favatar"/>
+
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
     <RelativeLayout
@@ -46,85 +60,33 @@
         android:layout_height="50dp"
         android:layout_marginTop="10dp">
         <Button
-            android:layout_width="250dp"
-            android:layout_height="40dp"
+            android:layout_width="200dp"
+            android:layout_height="35dp"
             android:background="@drawable/editext2"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:text="Bạn đang nghĩ gì?"
+            android:text="Chuyến đi của bạn?"
             android:textAllCaps="false"
             android:gravity="center" />
     </RelativeLayout>
-    <TabHost
-        android:id="@+id/tabhost"
-        android:background="@drawable/bgtabhost"
+    <RelativeLayout
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp">
-        <RelativeLayout
+        android:layout_height="match_parent">
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:tabMode="scrollable"
+        app:tabIndicatorColor="#76c8ff"
+        app:tabSelectedTextColor="#FF6D00"
+        android:background="@drawable/bgtabhost"
+        />
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpaper"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_width="match_parent">
-        <FrameLayout
-            android:id="@android:id/tabcontent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <RelativeLayout
-                android:id="@+id/tab1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <LinearLayout
-                    android:layout_marginTop="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="100dp"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginVertical="20dp"
-                        android:background="@mipmap/addstory"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"/>
-                    <ListView
-                        android:id="@+id/liststr"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"/>
-                </LinearLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <ListView
-                        android:id="@+id/liststt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </RelativeLayout>
-            </RelativeLayout>
-            <RelativeLayout
-                android:id="@+id/tab2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </RelativeLayout>
-            <RelativeLayout
-                android:id="@+id/tab3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-            <RelativeLayout
-                android:id="@+id/tab4"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-            <RelativeLayout
-                android:id="@+id/tab5"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </FrameLayout>
-        <TabWidget
-            android:id="@android:id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="-4dp"
-            android:background="#ffffff"
-            android:layout_alignParentBottom="true"/>
-        </RelativeLayout>
-    </TabHost>
-
+            android:layout_marginBottom="50dp" />
+    </RelativeLayout>
 </LinearLayout>

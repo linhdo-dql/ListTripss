@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
     <queries>
         <package android:name="com.facebook.katana" />
     </queries>
@@ -25,17 +27,19 @@
             android:value="@string/facebook_app_id" />
 
         <activity android:name=".Activitys.Introoooo">
+
+        </activity>
+        <activity android:name=".Activitys.ForgetPassword" />
+        <activity android:name=".Activitys.SignUp" />
+        <activity android:name=".Activitys.SignIn">
+
+        </activity>
+        <activity android:name=".Activitys.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".Activitys.ForgetPassword" />
-        <activity android:name=".Activitys.SignUp" />
-        <activity android:name=".Activitys.SignIn" />
-        <activity android:name=".Activitys.MainActivity">
-
         </activity>
     </application>
 

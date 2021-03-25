@@ -1,19 +1,27 @@
 package com.example.g16_listtrip.Activitys;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.g16_listtrip.Adapter.BitmapVsString;
+import com.example.g16_listtrip.Adapter.StatusAdapter;
 import com.example.g16_listtrip.Adapter.StoriesAdapter;
+import com.example.g16_listtrip.DoiTuong.Status;
 import com.example.g16_listtrip.DoiTuong.Stories;
 import com.example.g16_listtrip.R;
 import com.google.firebase.database.DataSnapshot;
@@ -22,37 +30,49 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import static android.app.Activity.RESULT_OK;
+
 public class Home extends Fragment {
+    private static final int REQUEST_IMAGE_CAPTURE = 123;
     private View rootView;
     ListView listStt;
     RecyclerView listStr;
-    ArrayList<Stories> Arrstr  = new ArrayList<>();
+    ImageButton imgUp;
     DatabaseReference mDataRef;
     StoriesAdapter storiesAdapter;
-    ArrayAdapter<Stories> adapter;
+    StatusAdapter statusAdapter;
+    String bitImgS = "", timeS = "";
+    BitmapVsString bs;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.home, container,false);
         initView();
-        adapter = new ArrayAdapter<Stories>(getContext(), android.R.layout.simple_list_item_1, getFBase());
-        listStt.setAdapter(adapter);
-        storiesAdapter=new StoriesAdapter(getActivity(), getFBase());
+        statusAdapter = new StatusAdapter(getActivity(), R.layout.itemstt, getFBaseSTT());
+        listStt.setAdapter(statusAdapter);
+        statusAdapter.notifyDataSetChanged();
+        storiesAdapter=new StoriesAdapter(getActivity(), getFBaseSTR());
         listStr.setAdapter(storiesAdapter);
         LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         listStr.setLayoutManager(horizontalLayoutManagaer);
-        storiesAdapter.notifyDataSetChanged();
-        adapter.notifyDataSetChanged();
-
+        imgUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE), REQUEST_IMAGE_CAPTURE);
+            }
+        });
         return rootView;
     }
     public void initView() {
         listStr = (RecyclerView) rootView.findViewById(R.id.listStr);
         listStt = (ListView) rootView.findViewById(R.id.listStt);
+        imgUp = (ImageButton) rootView.findViewById(R.id.btnAddstr);
     }
-    public ArrayList<Stories> getFBase() {
+    public ArrayList<Stories> getFBaseSTR() {
+        ArrayList<Stories> Arrstr = new ArrayList<>();
         mDataRef = FirebaseDatabase.getInstance().getReference("Story");
         mDataRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -65,7 +85,6 @@ public class Home extends Fragment {
                     }
                 }
                 storiesAdapter.notifyDataSetChanged();
-                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -75,4 +94,69 @@ public class Home extends Fragment {
         });
         return Arrstr;
     }
+    public ArrayList<Status> getFBaseSTT() {
+        ArrayList<Status> Arrstt = new ArrayList<>();
+        mDataRef = FirebaseDatabase.getInstance().getReference("Status");
+        mDataRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    for( DataSnapshot snap : snapshot.getChildren())
+                    {
+                        Status status = snap.getValue(Status.class);
+                        Arrstt.add(status);
+                    }
+                }
+                statusAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return Arrstt;
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            bitImgS = bs.convertBitmapToString(imageBitmap);
+            sendStorytoFibase();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void sendStorytoFibase() {
+        timeS = LocalDateTime.now().toString();
+        mDataRef = FirebaseDatabase.getInstance().getReference("Story");
+        mDataRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Stories str = new Stories();
+                str.accS = MainActivity.nameAcc;
+                str.imgS = bitImgS;
+                str.timeS = timeS;
+                mDataRef.push().setValue(str, new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
 }

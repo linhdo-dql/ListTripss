@@ -56,8 +56,9 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+        Storagepemission();
+        CameraAPIpemission();
         mAuth = FirebaseAuth.getInstance();
-
         try {
             getView();
             SignUpReceive();
@@ -235,7 +236,7 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
             case REQUEST_ID_READ_WRITE_PERMISSION:
                 if(grantResults.length >1 && grantResults[0]== PackageManager.PERMISSION_GRANTED && grantResults[1]==PackageManager.PERMISSION_GRANTED )
                 {
-                    Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show();
+
                 }
                 break;
             case REQUEST_CODE_CAMERA:

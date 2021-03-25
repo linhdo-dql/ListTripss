@@ -3,15 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Trợ giúp &amp; hỗ trợ"
+    <item android:title="Trang cá nhân"
         android:id="@+id/mnhelp" />
     <item android:title="Cài đặt &amp; quyền riêng tư"
         android:id="@+id/mnsetting"/>
     <item android:title="Đăng xuất"
         android:id="@+id/mnLogup"/>
-    <item
-        android:title=""
-        android:icon="@drawable/round_search_20"
-        android:id="@+id/mnsearch"
-        app:showAsAction="ifRoom"/>
+
 </menu>

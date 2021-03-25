@@ -1,50 +1,68 @@
 package com.example.g16_listtrip.Activitys;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Base64;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TabHost;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.g16_listtrip.Adapter.PrimaryGraphicAdapter;
-import com.example.g16_listtrip.Adapter.StoriesAdapter;
+import com.example.g16_listtrip.DoiTuong.Status;
 import com.example.g16_listtrip.R;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import gun0912.tedbottompicker.TedBottomPicker;
 
 public class MainActivity extends AppCompatActivity {
+    private static final int REQUEST_IMAGE_CAPTURE = 123;
     TabLayout tabLayout;
     Toolbar toolbar;
-    TabHost tabHost;
-    ImageButton avatar;
-    ImageView addstory;
+    ImageButton avatar,btnphoto,btntakept,btnaddlocation;
+    String imgStt = "";
     TextView txtTtk;
-    String nameAcc = "", bitImgS ="", timeS = "";
+    Button upStt,btnaddStt;
+    EditText edtstt, edtlocation;
+    int like = 0;
+    DatabaseReference databaseReference;
+    String stt = "", loc = "", datetimeStt ="";
+    static String nameAcc = "";
     private int tabIcon[] = {R.drawable.round_home_20,
                              R.drawable.round_menu_book_20,
                              R.drawable.baseline_room_24,
                              R.drawable.round_notifications_20,
                              R.drawable.round_menu_20};
-    DatabaseReference mDataRef;
-    RecyclerView recyclerView;
-    StoriesAdapter storiesAdapter;
-    ListView list;
     ViewPager viewPager;
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
@@ -57,56 +75,22 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setBackground(new ColorDrawable(Color.TRANSPARENT));
         setSupportActionBar(toolbar);
-        //
         getView();
+        getAccountName();
         setIconA();
-        //getAccountName();
-        //
-       //count.start();
 
-
-        /*storiesAdapter=new StoriesAdapter(this, getFBase());
-        recyclerView.setAdapter(storiesAdapter);
-        LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(horizontalLayoutManagaer);
-        storiesAdapter.notifyDataSetChanged();*/
 
     }
-    /*public void appGraphic() {
-        tabHost = (TabHost) findViewById(R.id.tabhost);
-        tabHost.setup();
-        TabHost.TabSpec tabHome = tabHost.newTabSpec("Home");
-        tabHome.setIndicator("", getResources().getDrawable(R.drawable.round_home_20));
-        tabHome.setContent(R.id.tab1);
-        TabHost.TabSpec tabList = tabHost.newTabSpec("List");
-        tabList.setIndicator("", getResources().getDrawable(R.drawable.round_menu_book_20));
-        tabList.setContent(R.id.tab2);
-        TabHost.TabSpec tabGPS = tabHost.newTabSpec("GPS");
-        tabGPS.setIndicator("", getResources().getDrawable(R.drawable.baseline_room_24));
-        tabGPS.setContent(R.id.tab3);
-        TabHost.TabSpec tabNotify = tabHost.newTabSpec("Notify");
-        tabNotify.setIndicator("", getResources().getDrawable(R.drawable.round_notifications_20));
-        tabNotify.setContent(R.id.tab4);
-        TabHost.TabSpec tabMenu = tabHost.newTabSpec("Menu");
-        tabMenu.setIndicator("", getResources().getDrawable(R.drawable.round_menu_20));
-        tabMenu.setContent(R.id.tab5);
-        tabHost.addTab(tabHome);
-        tabHost.addTab(tabList);
-        tabHost.addTab(tabGPS);
-        tabHost.addTab(tabNotify);
-        tabHost.addTab(tabMenu);
-    }*/
 
     public void getView() {
-      /*  addstory = (ImageView) findViewById(R.id.addstory);*/
         avatar = (ImageButton) findViewById(R.id.avatar);
         txtTtk = (TextView) findViewById(R.id.ttk);
-        /*recyclerView = (RecyclerView) findViewById(R.id.liststr);
-        list = (ListView) findViewById(R.id.liststt);*/
         viewPager = (ViewPager) findViewById(R.id.viewpaper);
         viewPager.setAdapter(new PrimaryGraphicAdapter(getSupportFragmentManager()));
+        viewPager.setBackground(new ColorDrawable(Color.TRANSPARENT));
         tabLayout = (TabLayout) findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
+        upStt = (Button) findViewById(R.id.btnupstt);
     }
 
     public void getAccountName() {
@@ -137,34 +121,106 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    /*@RequiresApi(api = Build.VERSION_CODES.O)
-    public void sendStorytoFibase() {
-        timeS = LocalTime.now().toString();
-        mDataRef = FirebaseDatabase.getInstance().getReference("Story");
-        mDataRef.addListenerForSingleValueEvent(new ValueEventListener() {
+    public void PopupMenuAvatar(View view) {
+        PopupMenu popupMenu = new PopupMenu(MainActivity.this, avatar);
+        popupMenu.getMenuInflater().inflate(R.menu.menu, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Stories str = new Stories();
-                    str.accS = nameAcc;
-                    str.imgS = bitImgS;
-                    str.timeS = timeS;
-                    mDataRef.push().setValue(str, new DatabaseReference.CompletionListener() {
-                        @Override
-                        public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-
-                        }
-                    });
-
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId())
+                {
+                    case R.id.mnLogup:
+                        startActivity(new Intent(MainActivity.this, SignIn.class));
+                        break;
+                }
+                return true;
             }
+        });
+        popupMenu.show();
+    }
+    @SuppressLint("ResourceType")
+    public void upStt(View view){
 
+        Dialog diaupsst =  new Dialog(MainActivity.this,R.style.ThemeOverlay_AppCompat_Dialog);
+        diaupsst.setContentView(R.layout.dialogupstt);
+        btntakept = (ImageButton) diaupsst.findViewById(R.id.btnTakeImage);
+        btnphoto = (ImageButton) diaupsst.findViewById(R.id.btnAddImgStt);
+        btnaddlocation = (ImageButton) diaupsst.findViewById(R.id.btnaddLocation);
+        edtstt = (EditText) diaupsst.findViewById(R.id.edtStt);
+        edtlocation = (EditText) diaupsst.findViewById(R.id.edtlocation);
+        btnaddStt = (Button) diaupsst.findViewById(R.id.btnAddStt);
+        btntakept.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void onClick(View v) {
+                startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE),REQUEST_IMAGE_CAPTURE);
+            }
+        });
+        btnphoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TedBottomPicker.OnImageSelectedListener listener = new TedBottomPicker.OnImageSelectedListener() {
+                    @Override
+                    public void onImageSelected(Uri uri) {
+                        try {
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                            imgStt = convertBitmapToString(bitmap);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                };
+                TedBottomPicker tedBottomPicker = new TedBottomPicker.Builder(MainActivity.this).setOnImageSelectedListener(listener).create();
+                tedBottomPicker.show(getSupportFragmentManager());
 
             }
         });
+        diaupsst.show();
+        btnaddlocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnaddlocation.setVisibility(View.INVISIBLE);
+                edtlocation.setVisibility(View.VISIBLE);
+            }
+        });
+        btnaddStt.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onClick(View v) {
+                datetimeStt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+                stt = edtstt.getText().toString();
+                loc = edtlocation.getText().toString();
+                databaseReference = FirebaseDatabase.getInstance().getReference("Status");
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Status status = new Status();
+                        status.usermaster = nameAcc;
+                        status.contentStt = stt;
+                        status.bitImgStt = imgStt;
+                        status.locationStt = loc;
+                        status.datetimeStt = datetimeStt;
+                        status.like = like;
+                        databaseReference.push().setValue(status, new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                diaupsst.dismiss();
+                            }
+                        });
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+
+        });
 
     }
-    */
+
     public String convertBitmapToString(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
@@ -181,6 +237,16 @@ public class MainActivity extends AppCompatActivity {
         catch(Exception e){
             e.getMessage();
             return null;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imgStt = convertBitmapToString(imageBitmap);
         }
     }
 }

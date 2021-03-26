@@ -2,9 +2,11 @@ package com.example.g16_listtrip.Activitys;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +20,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.g16_listtrip.Adapter.BitmapVsString;
 import com.example.g16_listtrip.Adapter.StatusAdapter;
 import com.example.g16_listtrip.Adapter.StoriesAdapter;
 import com.example.g16_listtrip.DoiTuong.Status;
@@ -30,6 +31,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.ByteArrayOutputStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -45,7 +47,6 @@ public class Home extends Fragment {
     StoriesAdapter storiesAdapter;
     StatusAdapter statusAdapter;
     String bitImgS = "", timeS = "";
-    BitmapVsString bs;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -126,7 +127,7 @@ public class Home extends Fragment {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
-            bitImgS = bs.convertBitmapToString(imageBitmap);
+            bitImgS = convertBitmapToString(imageBitmap);
             sendStorytoFibase();
         }
     }
@@ -156,7 +157,29 @@ public class Home extends Fragment {
 
             }
         });
-
+    }
+    public String convertBitmapToString(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        String result = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        return result;
+    }
+    public Bitmap StringToBitMap(String encodedString){
+        try{
+            byte [] encodeByte = Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        }
+        catch(Exception e){
+            e.getMessage();
+            return null;
+        }
     }
 
+
+    public void reloadH() {
+        statusAdapter.notifyDataSetChanged();
+        storiesAdapter.notifyDataSetChanged();
+    }
 }

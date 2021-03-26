@@ -72,7 +72,7 @@ public class StatusAdapter extends BaseAdapter
         TextView txtUsertStt = (TextView) convertView.findViewById(R.id.tvUserMaster);
         txtUsertStt.setText(status.get(position).usermaster);
         txttimeStt = (TextView) convertView.findViewById(R.id.timeStt);
-        txttimeStt.setText(CalcHour(String.valueOf(status.get(position).datetimeStt), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()).toString()));
+        CalcHour(String.valueOf(status.get(position).datetimeStt), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()));
         TextView txtlocationStt = (TextView) convertView.findViewById(R.id.tvLocationSttItem);
         txtlocationStt.setText(status.get(position).locationStt);
         TextView txtcontentStt = (TextView) convertView.findViewById(R.id.contenSttItems);
@@ -122,7 +122,7 @@ public class StatusAdapter extends BaseAdapter
         return convertView;
     }
 
-    public String CalcHour(String a, String b) {
+    public void CalcHour(String a, String b) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         Date d1 = new Date();
@@ -165,7 +165,7 @@ public class StatusAdapter extends BaseAdapter
         {
             txttimeStt.setText(diffHours+ " giờ");
         }
-        return txttimeStt.getText().toString();
+
     }
 
         public void UpdateLike(int pos) {
@@ -173,10 +173,7 @@ public class StatusAdapter extends BaseAdapter
         mDataRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(txttimeStt.getText().toString().equals(CalcHour(String.valueOf(status.get(pos).datetimeStt), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()).toString())))
-                {
-                    snapshot.getRef().child("like").setValue(Integer.parseInt(String.valueOf(status.get(pos).like)+like));
-                }
+
             }
 
             @Override

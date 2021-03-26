@@ -1,4 +1,4 @@
-package com.example.g16_listtrip.Activitys;
+ package com.example.g16_listtrip.Activitys;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -104,10 +104,17 @@ public class MainActivity extends AppCompatActivity {
         {
             tabLayout.getTabAt(i).setIcon(tabIcon[i]);
         }
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 tab.getIcon().setColorFilter(Color.parseColor("#FF6D00"),PorterDuff.Mode.SRC_IN);
+                switch (tab.getPosition())
+                {
+                    case 1: Home home = (Home) viewPager.getAdapter().instantiateItem(viewPager, 0);
+                            home.reloadH();
+                            break;
+                }
             }
 
             @Override

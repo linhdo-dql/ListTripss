@@ -54,7 +54,6 @@ public class Home extends Fragment {
         initView();
         statusAdapter = new StatusAdapter(getActivity(), R.layout.itemstt, getFBaseSTT());
         listStt.setAdapter(statusAdapter);
-        statusAdapter.notifyDataSetChanged();
         storiesAdapter=new StoriesAdapter(getActivity(), getFBaseSTR());
         listStr.setAdapter(storiesAdapter);
         LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);

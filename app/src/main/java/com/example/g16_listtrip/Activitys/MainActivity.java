@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     int like = 0;
     DatabaseReference databaseReference;
     String stt = "", loc = "", datetimeStt ="";
-    static String nameAcc = "";
+    public static String nameAcc = "";
     private int tabIcon[] = {R.drawable.round_home_20,
                              R.drawable.round_menu_book_20,
                              R.drawable.baseline_room_24,
@@ -207,7 +207,6 @@ public class MainActivity extends AppCompatActivity {
                         status.bitImgStt = imgStt;
                         status.locationStt = loc;
                         status.datetimeStt = datetimeStt;
-                        status.like = like;
                         databaseReference.push().setValue(status, new DatabaseReference.CompletionListener() {
                             @Override
                             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {

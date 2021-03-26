@@ -17,6 +17,13 @@
         android:text="Hoàng Long"
         android:layout_toRightOf="@id/avatarStt"/>
     <TextView
+        android:id="@+id/timean"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"/>
+    <TextView
         android:id="@+id/timeStt"
         android:layout_width="wrap_content"
         android:text="3 giờ trước"

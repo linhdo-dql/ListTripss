@@ -15,12 +15,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
+import com.example.g16_listtrip.Activitys.MainActivity;
+import com.example.g16_listtrip.DoiTuong.Like;
 import com.example.g16_listtrip.DoiTuong.Status;
 import com.example.g16_listtrip.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
@@ -29,21 +32,20 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class StatusAdapter extends BaseAdapter
-{
+public class StatusAdapter extends BaseAdapter {
     Context context;
     int layout;
+    TextView timean;
     ArrayList<Status> status;
     int slpress = 0, like = 0;
-    TextView txttimeStt;
-    String time = "";
+    TextView txttimeStt, txtUsertStt;
+    ImageView heartlike;
+
     public StatusAdapter(Context context, int layout, ArrayList<Status> status) {
         this.context = context;
         this.layout = layout;
         this.status = status;
     }
-
-
 
 
     @Override
@@ -69,39 +71,42 @@ public class StatusAdapter extends BaseAdapter
         BitmapVsString bs = new BitmapVsString();
         ImageView imgAvatar = (ImageView) convertView.findViewById(R.id.avatarStt);
         imgAvatar.setBackgroundResource(R.drawable.anh1);
-        TextView txtUsertStt = (TextView) convertView.findViewById(R.id.tvUserMaster);
+        txtUsertStt = (TextView) convertView.findViewById(R.id.tvUserMaster);
         txtUsertStt.setText(status.get(position).usermaster);
         txttimeStt = (TextView) convertView.findViewById(R.id.timeStt);
         CalcHour(String.valueOf(status.get(position).datetimeStt), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()));
+        timean = (TextView) convertView.findViewById(R.id.timean);
+        timean.setText(String.valueOf(status.get(position).datetimeStt));
         TextView txtlocationStt = (TextView) convertView.findViewById(R.id.tvLocationSttItem);
         txtlocationStt.setText(status.get(position).locationStt);
         TextView txtcontentStt = (TextView) convertView.findViewById(R.id.contenSttItems);
         txtcontentStt.setText(status.get(position).contentStt);
         ImageView imgStt = (ImageView) convertView.findViewById(R.id.imageSttItem);
         imgStt.setImageBitmap(bs.StringToBitMap(status.get(position).bitImgStt));
-        like = Integer.parseInt(String.valueOf(status.get(position).like));
         TextView txtlike = (TextView) convertView.findViewById(R.id.txtLike);
-        ImageView heartlike = (ImageView) convertView.findViewById(R.id.heartLike);
+        if (like > 0) {
+            txtlike.setText("(" + like + ")");
+        }
+        heartlike = (ImageView) convertView.findViewById(R.id.heartLike);
+        TestLiked(position);
         LinearLayout btnLike = (LinearLayout) convertView.findViewById(R.id.bLike);
         btnLike.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
                 slpress++;
-                if(slpress%2!=0)
-                {
+                if (slpress % 2 != 0) {
                     like = like + 1;
-                    txtlike.setText("("+like+")");
+                    txtlike.setText("(" + like + ")");
                     txtlike.setTextColor(R.color.pingLove);
                     heartlike.setBackgroundResource(R.drawable.heartok);
-                    UpdateLike(position);
-                }
-                else
-                {
+                    AttackLike(position);
+                } else {
                     like = 0;
                     txtlike.setText("Yêu thích");
                     txtlike.setTextColor(R.color.defaultC);
                     heartlike.setBackgroundResource(R.drawable.heart);
+                    AttackDiskLike(position);
                 }
             }
         });
@@ -110,12 +115,11 @@ public class StatusAdapter extends BaseAdapter
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    try {
+                try {
 
-                    }catch (Exception e)
-                    {
-                        Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
+                } catch (Exception e) {
+                    Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -149,31 +153,60 @@ public class StatusAdapter extends BaseAdapter
 
         long diffHours = diff / (60 * 60 * 1000);
 
-        if(diffSeconds<10)
-        {
+        if (diffSeconds < 10) {
             txttimeStt.setText("Vài giây trước");
-        }
-        else if(diffMinutes < 1 && diffSeconds > 60)
-        {
+        } else if (diffMinutes < 1 && diffSeconds > 60) {
             txttimeStt.setText("Gần 1 phút trước");
-        }
-        else if(diffMinutes >= 1 && diffMinutes < 60)
-        {
-            txttimeStt.setText(diffMinutes+" phút");
-        }
-        else if(diffMinutes>= 60 && diffHours >= 1)
-        {
-            txttimeStt.setText(diffHours+ " giờ");
+        } else if (diffMinutes >= 1 && diffMinutes < 60) {
+            txttimeStt.setText(diffMinutes + " phút");
+        } else if (diffMinutes >= 60 && diffHours >= 1) {
+            txttimeStt.setText(diffHours + " giờ");
         }
 
     }
 
-        public void UpdateLike(int pos) {
-        DatabaseReference mDataRef = (DatabaseReference) FirebaseDatabase.getInstance().getReference("Status").orderByChild(status.get(pos).usermaster);
+    public long CalcHour2(String a, String b) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        Date d1 = new Date();
+
+        Date d2 = new Date();
+
+        try {
+
+            d1 = format.parse(a);
+
+            d2 = format.parse(b);
+
+        } catch (ParseException e) {
+
+        }
+
+        // Get msec from each, and subtract.
+
+        long diff = d2.getTime() - d1.getTime();
+
+        long diffSeconds = diff / 1000;
+
+        long diffMinutes = diff / (60 * 1000);
+
+        long diffHours = diff / (60 * 60 * 1000);
+        return diff;
+    }
+
+    public void AttackLike(int pos) {
+        DatabaseReference databaseReference = (DatabaseReference) FirebaseDatabase.getInstance().getReference("Status");
+        Query mDataRef = FirebaseDatabase.getInstance().getReference("Status").orderByChild("usermaster").equalTo(txtUsertStt.getText().toString());
         mDataRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot s : snapshot.getChildren()) {
+                    if (s.child("datetimeStt").getValue().toString().equals(status.get(pos).datetimeStt)) {
+                        Like likes = new Like(1, MainActivity.nameAcc);
+                        databaseReference.child(s.getKey()).child("like").push().setValue(likes);
+                    }
 
+                }
             }
 
             @Override
@@ -182,4 +215,80 @@ public class StatusAdapter extends BaseAdapter
             }
         });
     }
+    public void TestLiked(int pos) {
+        Query mQuery = FirebaseDatabase.getInstance().getReference("Status").orderByChild("usermaster").equalTo(txtUsertStt.getText().toString());
+        mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot s : snapshot.getChildren()) {
+                    if (s.child("datetimeStt").getValue().toString().equals(status.get(pos).datetimeStt)) {
+                       Query mQuery2 = FirebaseDatabase.getInstance().getReference("Status").child(s.getKey()).child("like").orderByChild("userLike").equalTo(MainActivity.nameAcc);
+                       mQuery2.addListenerForSingleValueEvent(new ValueEventListener() {
+                           @Override
+                           public void onDataChange(@NonNull DataSnapshot snapshot) {
+                               if(snapshot.exists())
+                               {
+                                   heartlike.setBackgroundResource(R.drawable.heartok);
+                                   StatusAdapter.this.notifyAll();
+                               }
+                           }
+
+                           @Override
+                           public void onCancelled(@NonNull DatabaseError error) {
+
+                           }
+                       });
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    public void AttackDiskLike(int pos) {
+        Query mQuery = FirebaseDatabase.getInstance().getReference("Status").orderByChild("usermaster").equalTo(txtUsertStt.getText().toString());
+        mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot s : snapshot.getChildren()) {
+                    if (s.child("datetimeStt").getValue().toString().equals(status.get(pos).datetimeStt)) {
+                        DatabaseReference mRef = FirebaseDatabase.getInstance()
+                                .getReference("Status")
+                                .child(s.getKey())
+                                .child("like");
+                        Query mQuery2 = FirebaseDatabase.getInstance().getReference("Status").child(s.getKey()).child("like").orderByChild("userLike").equalTo(MainActivity.nameAcc);
+                        mQuery2.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if(snapshot.exists())
+                                {
+                                   for(DataSnapshot nap: snapshot.getChildren())
+                                   {
+                                       mRef.removeValue();
+                                       StatusAdapter.this.notifyAll();
+                                   }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
 }

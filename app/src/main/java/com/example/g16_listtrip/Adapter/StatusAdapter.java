@@ -35,10 +35,9 @@ import java.util.Date;
 public class StatusAdapter extends BaseAdapter {
     Context context;
     int layout;
-    TextView timean;
     ArrayList<Status> status;
     int slpress = 0, like = 0;
-    TextView txttimeStt, txtUsertStt;
+    TextView txttimeStt, txtUsertStt, txtLike;
     ImageView heartlike;
 
     public StatusAdapter(Context context, int layout, ArrayList<Status> status) {
@@ -75,37 +74,31 @@ public class StatusAdapter extends BaseAdapter {
         txtUsertStt.setText(status.get(position).usermaster);
         txttimeStt = (TextView) convertView.findViewById(R.id.timeStt);
         CalcHour(String.valueOf(status.get(position).datetimeStt), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()));
-        timean = (TextView) convertView.findViewById(R.id.timean);
-        timean.setText(String.valueOf(status.get(position).datetimeStt));
         TextView txtlocationStt = (TextView) convertView.findViewById(R.id.tvLocationSttItem);
         txtlocationStt.setText(status.get(position).locationStt);
         TextView txtcontentStt = (TextView) convertView.findViewById(R.id.contenSttItems);
         txtcontentStt.setText(status.get(position).contentStt);
         ImageView imgStt = (ImageView) convertView.findViewById(R.id.imageSttItem);
         imgStt.setImageBitmap(bs.StringToBitMap(status.get(position).bitImgStt));
-        TextView txtlike = (TextView) convertView.findViewById(R.id.txtLike);
-        if (like > 0) {
-            txtlike.setText("(" + like + ")");
-        }
+        txtLike = (TextView) convertView.findViewById(R.id.txtLike);
         heartlike = (ImageView) convertView.findViewById(R.id.heartLike);
-        TestLiked(position);
+        CheckLiked(position);
         LinearLayout btnLike = (LinearLayout) convertView.findViewById(R.id.bLike);
         btnLike.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
                 slpress++;
-                if (slpress % 2 != 0) {
-                    like = like + 1;
-                    txtlike.setText("(" + like + ")");
-                    txtlike.setTextColor(R.color.pingLove);
+                if(slpress==1) {
                     heartlike.setBackgroundResource(R.drawable.heartok);
+                    txtLike.setText("");
                     AttackLike(position);
-                } else {
-                    like = 0;
-                    txtlike.setText("Yêu thích");
-                    txtlike.setTextColor(R.color.defaultC);
+                }
+                else
+                {
+                    slpress = 0;
                     heartlike.setBackgroundResource(R.drawable.heart);
+                    txtLike.setText("Yêu thích");
                     AttackDiskLike(position);
                 }
             }
@@ -165,35 +158,6 @@ public class StatusAdapter extends BaseAdapter {
 
     }
 
-    public long CalcHour2(String a, String b) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-        Date d1 = new Date();
-
-        Date d2 = new Date();
-
-        try {
-
-            d1 = format.parse(a);
-
-            d2 = format.parse(b);
-
-        } catch (ParseException e) {
-
-        }
-
-        // Get msec from each, and subtract.
-
-        long diff = d2.getTime() - d1.getTime();
-
-        long diffSeconds = diff / 1000;
-
-        long diffMinutes = diff / (60 * 1000);
-
-        long diffHours = diff / (60 * 60 * 1000);
-        return diff;
-    }
-
     public void AttackLike(int pos) {
         DatabaseReference databaseReference = (DatabaseReference) FirebaseDatabase.getInstance().getReference("Status");
         Query mDataRef = FirebaseDatabase.getInstance().getReference("Status").orderByChild("usermaster").equalTo(txtUsertStt.getText().toString());
@@ -215,7 +179,7 @@ public class StatusAdapter extends BaseAdapter {
             }
         });
     }
-    public void TestLiked(int pos) {
+    public void CheckLiked(int pos) {
         Query mQuery = FirebaseDatabase.getInstance().getReference("Status").orderByChild("usermaster").equalTo(txtUsertStt.getText().toString());
         mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -223,21 +187,26 @@ public class StatusAdapter extends BaseAdapter {
                 for (DataSnapshot s : snapshot.getChildren()) {
                     if (s.child("datetimeStt").getValue().toString().equals(status.get(pos).datetimeStt)) {
                        Query mQuery2 = FirebaseDatabase.getInstance().getReference("Status").child(s.getKey()).child("like").orderByChild("userLike").equalTo(MainActivity.nameAcc);
-                       mQuery2.addListenerForSingleValueEvent(new ValueEventListener() {
-                           @Override
-                           public void onDataChange(@NonNull DataSnapshot snapshot) {
+                       mQuery2.addValueEventListener(new ValueEventListener() {
+                          @Override
+                          public void onDataChange(@NonNull DataSnapshot snapshot) {
                                if(snapshot.exists())
                                {
-                                   heartlike.setBackgroundResource(R.drawable.heartok);
-                                   StatusAdapter.this.notifyAll();
+                                    heartlike.setBackgroundResource(R.drawable.heartok);
+                                    txtLike.setText("");
                                }
-                           }
+                               else
+                               {
+                                   heartlike.setBackgroundResource(R.drawable.heart);
+                                   txtLike.setText("Yêu thích");
+                               }
+                          }
 
-                           @Override
-                           public void onCancelled(@NonNull DatabaseError error) {
+                          @Override
+                          public void onCancelled(@NonNull DatabaseError error) {
 
-                           }
-                       });
+                          }
+                      });
                     }
 
                 }
@@ -269,7 +238,6 @@ public class StatusAdapter extends BaseAdapter {
                                    for(DataSnapshot nap: snapshot.getChildren())
                                    {
                                        mRef.removeValue();
-                                       StatusAdapter.this.notifyAll();
                                    }
                                 }
                             }

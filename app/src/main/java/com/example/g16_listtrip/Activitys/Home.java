@@ -3,6 +3,8 @@ package com.example.g16_listtrip.Activitys;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -54,6 +56,7 @@ public class Home extends Fragment {
         initView();
         statusAdapter = new StatusAdapter(getActivity(), R.layout.itemstt, getFBaseSTT());
         listStt.setAdapter(statusAdapter);
+        statusAdapter.notifyDataSetChanged();
         storiesAdapter=new StoriesAdapter(getActivity(), getFBaseSTR());
         listStr.setAdapter(storiesAdapter);
         LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
@@ -68,6 +71,7 @@ public class Home extends Fragment {
     }
     public void initView() {
         listStr = (RecyclerView) rootView.findViewById(R.id.listStr);
+        listStr.setBackground(new ColorDrawable(Color.TRANSPARENT));
         listStt = (ListView) rootView.findViewById(R.id.listStt);
         imgUp = (ImageButton) rootView.findViewById(R.id.btnAddstr);
     }
@@ -175,8 +179,6 @@ public class Home extends Fragment {
             return null;
         }
     }
-
-
     public void reloadH() {
         statusAdapter.notifyDataSetChanged();
         storiesAdapter.notifyDataSetChanged();

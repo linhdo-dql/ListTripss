@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -19,7 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -51,18 +50,22 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     ImageButton avatar,btnphoto,btntakept,btnaddlocation;
     String imgStt = "";
-    TextView txtTtk;
-    Button upStt,btnaddStt;
+    Button btnaddStt;
     EditText edtstt, edtlocation;
-    int like = 0;
+    RelativeLayout upStt;
     DatabaseReference databaseReference;
     String stt = "", loc = "", datetimeStt ="";
     public static String nameAcc = "";
-    private int tabIcon[] = {R.drawable.round_home_20,
-                             R.drawable.round_menu_book_20,
+    private int tabIcon1[] = {R.drawable.baseline_home_20,
+                             R.drawable.round_assignment_24,
                              R.drawable.baseline_room_24,
                              R.drawable.round_notifications_20,
                              R.drawable.round_menu_20};
+    private int tabIcon[] = {R.drawable.outline_home_24,
+            R.drawable.outline_assignment_24,
+            R.drawable.outline_room_24,
+            R.drawable.round_notifications_none_24,
+            R.drawable.round_menu_20};
     ViewPager viewPager;
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
@@ -82,25 +85,25 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @SuppressLint("WrongViewCast")
     public void getView() {
         avatar = (ImageButton) findViewById(R.id.avatar);
-        txtTtk = (TextView) findViewById(R.id.ttk);
         viewPager = (ViewPager) findViewById(R.id.viewpaper);
         viewPager.setAdapter(new PrimaryGraphicAdapter(getSupportFragmentManager()));
         viewPager.setBackground(new ColorDrawable(Color.TRANSPARENT));
         tabLayout = (TabLayout) findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
-        upStt = (Button) findViewById(R.id.btnupstt);
+        upStt = (RelativeLayout) findViewById(R.id.btnupstt);
     }
 
     public void getAccountName() {
         Intent a = getIntent();
         Bundle b = a.getExtras();
         nameAcc = b.getString("tk2");
-        txtTtk.setText(""+nameAcc);
     }
     public void setIconA() {
-        for(int i = 0; i < 5 ; i ++)
+        tabLayout.getTabAt(0).setIcon(tabIcon1[0]);
+        for(int i = 1; i < 5 ; i ++)
         {
             tabLayout.getTabAt(i).setIcon(tabIcon[i]);
         }
@@ -108,18 +111,12 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                tab.getIcon().setColorFilter(Color.parseColor("#FF6D00"),PorterDuff.Mode.SRC_IN);
-                switch (tab.getPosition())
-                {
-                    case 1: Home home = (Home) viewPager.getAdapter().instantiateItem(viewPager, 0);
-                            home.reloadH();
-                            break;
-                }
+                tabLayout.getTabAt(tab.getPosition()).setIcon(tabIcon1[tab.getPosition()]);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                tab.getIcon().setColorFilter(Color.parseColor("#76C8FF"),PorterDuff.Mode.SRC_IN);
+                tabLayout.getTabAt(tab.getPosition()).setIcon(tabIcon[tab.getPosition()]);
             }
 
             @Override

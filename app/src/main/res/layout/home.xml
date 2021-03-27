@@ -1,10 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/edt7">
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="25dp"
+            android:background="@drawable/edt6">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/ongnhom"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Tham quan"
+                android:textSize="10sp"
+                android:layout_marginLeft="5dp"
+                android:textColor="#117C12"
+                android:textStyle="bold"
+                android:gravity="center_vertical"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="25dp"
+            android:background="@drawable/edt6">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="25dp"
+                android:background="@drawable/anuong"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text=" Ăn uống"
+                android:textSize="10sp"
+                android:layout_marginLeft="5dp"
+                android:textColor="#DD2C00"
+                android:textStyle="bold"
+                android:gravity="center_vertical"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="25dp"
+            android:background="@drawable/edt6">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/rs"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text=" Nghỉ dưỡng"
+                android:textSize="10sp"
+                android:layout_marginLeft="5dp"
+                android:textColor="#304FFE"
+                android:textStyle="bold"
+                android:gravity="center_vertical"/>
+        </LinearLayout>
+
+    </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp">
+        android:layout_height="90dp"
+        android:background="@drawable/edt7">
         <ImageButton
             android:id="@+id/btnAddstr"
             android:layout_marginLeft="10dp"
@@ -15,13 +84,15 @@
             android:onClick="upStr"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listStr"
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
             android:layout_marginLeft="35dp"/>
     </RelativeLayout>
     <ListView
         android:id="@+id/listStt"
-        android:layout_marginTop="10dp"
+        android:background="@drawable/viewpagerback"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"/>

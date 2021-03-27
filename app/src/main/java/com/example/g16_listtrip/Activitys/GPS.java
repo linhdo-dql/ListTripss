@@ -24,7 +24,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class GPS extends Fragment implements  OnMapReadyCallback {
     private View rootView;
     private Location location;
-    private GoogleMap googleMap;
+    GoogleMap map;
     private LocationManager locationManager;
     long curentLat = 0, curentLong = 0;
 

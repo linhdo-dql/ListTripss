@@ -24,22 +24,18 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/logo"
                 android:layout_alignParentLeft="true"/>
-            <androidx.cardview.widget.CardView
-                android:id="@+id/favatar"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                app:cardCornerRadius="10dp"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="30dp"
-                android:layout_alignParentRight="true">
-            <ImageButton
+
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/avatar"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/nen2"
-                android:onClick="PopupMenuAvatar"
-                />
-            </androidx.cardview.widget.CardView>
+                android:layout_centerVertical="true"
+                android:layout_marginRight="30dp"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/linkavatar"
+                android:onClick="PopupMenuAvatar">
+            </de.hdodenhof.circleimageview.CircleImageView>
+
             <ImageView
                 android:id="@+id/seach"
                 android:layout_width="30dp"
@@ -47,7 +43,7 @@
                 android:src="@drawable/search"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_toLeftOf="@id/favatar"/>
+                android:layout_toLeftOf="@id/avatar"/>
 
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>

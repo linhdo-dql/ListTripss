@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -42,25 +41,28 @@ import static android.app.Activity.RESULT_OK;
 public class Home extends Fragment {
     private static final int REQUEST_IMAGE_CAPTURE = 123;
     private View rootView;
-    ListView listStt;
-    RecyclerView listStr;
+    RecyclerView listStr,listStt;
     ImageButton imgUp;
     DatabaseReference mDataRef;
     StoriesAdapter storiesAdapter;
     StatusAdapter statusAdapter;
     String bitImgS = "", timeS = "";
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.home, container,false);
         initView();
-        statusAdapter = new StatusAdapter(getActivity(), R.layout.itemstt, getFBaseSTT());
-        listStt.setAdapter(statusAdapter);
-        statusAdapter.notifyDataSetChanged();
+        //
         storiesAdapter=new StoriesAdapter(getActivity(), getFBaseSTR());
         listStr.setAdapter(storiesAdapter);
         LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         listStr.setLayoutManager(horizontalLayoutManagaer);
+        //
+        LinearLayoutManager verticalLayoutManagaer = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        listStt.setLayoutManager(verticalLayoutManagaer);
+        statusAdapter = new StatusAdapter(getActivity(),getFBaseSTT());
+        listStt.setAdapter(statusAdapter);
         imgUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +74,7 @@ public class Home extends Fragment {
     public void initView() {
         listStr = (RecyclerView) rootView.findViewById(R.id.listStr);
         listStr.setBackground(new ColorDrawable(Color.TRANSPARENT));
-        listStt = (ListView) rootView.findViewById(R.id.listStt);
+        listStt = (RecyclerView) rootView.findViewById(R.id.listStt);
         imgUp = (ImageButton) rootView.findViewById(R.id.btnAddstr);
     }
     public ArrayList<Stories> getFBaseSTR() {
@@ -161,6 +163,7 @@ public class Home extends Fragment {
             }
         });
     }
+
     public String convertBitmapToString(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
@@ -178,9 +181,5 @@ public class Home extends Fragment {
             e.getMessage();
             return null;
         }
-    }
-    public void reloadH() {
-        statusAdapter.notifyDataSetChanged();
-        storiesAdapter.notifyDataSetChanged();
     }
 }

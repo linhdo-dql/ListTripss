@@ -1,22 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="wrap_content"
-    android:background="@drawable/editext3"
-    android:layout_marginBottom="20dp">
-    <ImageView
+    android:background="@drawable/editext3">
+    <de.hdodenhof.circleimageview.CircleImageView
         android:layout_marginTop="10dp"
         android:id="@+id/avatarStt"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginLeft="10dp"/>
     <TextView
-        android:id="@+id/tvUserMaster"
+        android:id="@+id/tvUserName"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
-        android:text="Hoàng Long"
         android:layout_toRightOf="@id/avatarStt"/>
+    <TextView
+        android:id="@+id/tvUserMaster"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="Hoàng Long"
+        android:visibility="invisible"
+        android:layout_alignParentRight="true"
+        />
     <TextView
         android:id="@+id/timeStt"
         android:layout_width="wrap_content"
@@ -45,27 +53,23 @@
         android:layout_marginLeft="10dp"/>
     <ImageView
         android:id="@+id/imageSttItem"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_below="@id/contenSttItems"
         android:layout_marginLeft="10dp"
-        android:scaleType="fitCenter"
-        android:adjustViewBounds="true"
-        android:src="@drawable/nen21"
         android:layout_marginRight="10dp"
-        android:foregroundGravity="center"
         android:layout_marginTop="10dp" />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/edt4"
         android:layout_below="@id/imageSttItem">
     <LinearLayout
         android:id="@+id/bLike"
         android:layout_width="120dp"
-        android:layout_height="50dp"
+        android:layout_height="30dp"
         android:layout_below="@id/imageSttItem"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
@@ -74,40 +78,40 @@
             android:id="@+id/heartLike"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:background="@drawable/heart"/>
         <TextView
             android:id="@+id/txtLike"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="7dp"
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="20dp"
             android:text="Yêu thích"
-            android:textSize="13dp"
+            android:textSize="12dp"
             />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/bComment"
         android:layout_toRightOf="@id/bLike"
         android:layout_width="120dp"
-        android:layout_height="50dp"
+        android:layout_height="30dp"
         android:layout_marginTop="5dp"
         android:layout_below="@id/imageSttItem"
         android:orientation="horizontal">
         <ImageView
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:background="@drawable/comment"/>
         <TextView
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="20dp"
             android:text="Bình luận"
-            android:textSize="13dp"
+            android:textSize="12dp"
             />
     </LinearLayout>
 
@@ -115,23 +119,23 @@
         android:id="@+id/bShare"
         android:layout_toRightOf="@id/bComment"
         android:layout_width="120dp"
-        android:layout_height="50dp"
+        android:layout_height="30dp"
         android:layout_below="@id/imageSttItem"
         android:layout_marginTop="5dp"
         android:orientation="horizontal">
         <ImageView
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:background="@drawable/share"/>
         <TextView
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="20dp"
             android:text="Chia sẻ"
-            android:textSize="13dp"
+            android:textSize="12dp"
             />
     </LinearLayout>
     </LinearLayout>

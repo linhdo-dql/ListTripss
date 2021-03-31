@@ -12,5 +12,11 @@
         <item name="textInputStyle">@style/Widget.Design.TextInputLayout</item>
         <item name="android:textColor">#aacbb4</item>
     </style>
+    <style name="roundedImageViewRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+        <item name="android:colorBackground">#00000000</item>
+    </style>
+
 
 </resources>

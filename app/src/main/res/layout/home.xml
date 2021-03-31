@@ -90,7 +90,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="35dp"/>
     </RelativeLayout>
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listStt"
         android:background="@drawable/viewpagerback"
         android:layout_width="match_parent"

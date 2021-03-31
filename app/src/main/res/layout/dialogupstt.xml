@@ -38,7 +38,7 @@
         android:lines="10"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@drawable/editext3"
+        android:background="@drawable/edt8"
         />
     <ImageButton
         android:id="@+id/btnTakeImage"

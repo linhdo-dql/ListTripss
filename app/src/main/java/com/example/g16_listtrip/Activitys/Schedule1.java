@@ -33,8 +33,8 @@ public class Schedule1 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.schedule1, container, false);
         initView();
-        adapterListSchedule = new Adapter_ListSchedule(getActivity(), R.layout.item_schedule, getFBaseScheduleNow());
-        ls.setAdapter(adapterListSchedule);
+       // adapterListSchedule = new Adapter_ListSchedule(getActivity(), R.layout.item_schedule, getFBaseScheduleNow());
+       // ls.setAdapter(adapterListSchedule);
         return rootView;
 
     }

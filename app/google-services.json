@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "660840145779",
+    "firebase_url": "https://listtrip-acb24-default-rtdb.firebaseio.com",
     "project_id": "listtrip-acb24",
     "storage_bucket": "listtrip-acb24.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "660840145779-c5r14l84km39is93m7d49u0hrkmcb81h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.g16_listtrip",
+            "certificate_hash": "a865787a43a7cb4c8ef5df76713eb48b088961f7"
+          }
+        },
         {
           "client_id": "660840145779-dgj7ahf1j07assk1gq9fa400lal1ga17.apps.googleusercontent.com",
           "client_type": 3

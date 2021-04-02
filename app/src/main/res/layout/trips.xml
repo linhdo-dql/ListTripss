@@ -4,4 +4,32 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
 
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPagerTrip"
+        android:background="#3BA2C1C5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp">
+
+
+    </androidx.viewpager.widget.ViewPager>
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabTrip"
+        android:background="#76C8FF"
+        android:layout_width="match_parent"
+        app:tabTextColor="#ffffff"
+        android:layout_height="50dp">
+    </com.google.android.material.tabs.TabLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/addstory"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:clickable="true"/>
+
+
 </RelativeLayout>

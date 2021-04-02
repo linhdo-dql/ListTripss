@@ -14,7 +14,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.g16_listtrip.DoiTuong.Stories;
+import com.example.g16_listtrip.DoiTuong.USER;
 import com.example.g16_listtrip.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -37,8 +43,7 @@ public class StoriesAdapter extends RecyclerView.Adapter<StoriesAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Stories stories = listStories.get(position);
-        holder.txtTk.setText(stories.getAccS());
-        holder.txtdate.setText(stories.getTimeS());
+        holder.getAvatar(stories.getAccS());
         holder.imageS.setImageBitmap(StringToBitMap(stories.imgS));
     }
 
@@ -48,13 +53,34 @@ public class StoriesAdapter extends RecyclerView.Adapter<StoriesAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageS;
+        ImageView imageS, imgAvatar;
         TextView txtTk, txtdate;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageS =  itemView.findViewById(R.id.imagestr);
-            txtTk = itemView.findViewById(R.id.txttaikhoan);
-            txtdate = itemView.findViewById(R.id.txtngaygio);
+            imageS = itemView.findViewById(R.id.imagestr);
+            imgAvatar = itemView.findViewById(R.id.userStory);
+        }
+
+        public void getAvatar(String s) {
+            DatabaseReference mdata = FirebaseDatabase.getInstance().getReference("Profile").child(s);
+            mdata.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        USER user = snapshot.getValue(USER.class);
+                        imgAvatar.setImageBitmap(StringToBitMap(user.getsImageA()));
+                        notifyDataSetChanged();
+                    } else {
+                        imgAvatar.setBackgroundResource(R.mipmap.linkavatar);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         }
     }
     public Bitmap StringToBitMap(String encodedString){

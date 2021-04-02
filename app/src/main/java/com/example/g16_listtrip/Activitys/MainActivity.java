@@ -29,6 +29,7 @@
  import androidx.viewpager.widget.ViewPager;
 
  import com.example.g16_listtrip.Adapter.PrimaryGraphicAdapter;
+ import com.example.g16_listtrip.Adapter.StatusAdapter;
  import com.example.g16_listtrip.DoiTuong.Status;
  import com.example.g16_listtrip.DoiTuong.USER;
  import com.example.g16_listtrip.R;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnaddStt;
     EditText edtstt, edtlocation;
     RelativeLayout upStt;
+    StatusAdapter adapter;
     DatabaseReference databaseReference;
     String stt = "", loc = "", datetimeStt ="";
     public static String nameAcc = "";
@@ -216,6 +218,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                                 diaupsst.dismiss();
+                                adapter.notifyDataSetChanged();
                             }
                         });
 

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/editext10">
+    <ListView
+        android:id="@+id/listS"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"/>
+    <TextView
+        android:layout_below="@+id/listS"
+        android:id="@+id/txtToPlace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:text="Địa điểm: "
+        android:textSize="20dp"/>
+
+    <EditText
+
+        android:id="@+id/edtToPlace"
+        android:layout_below="@+id/listS"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="130dp"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:layout_below="@+id/txtToPlace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:text="Thời gian: "
+        android:textSize="20dp"/>
+
+    <EditText
+        android:id="@+id/edtTimeTo"
+        android:layout_below="@+id/listS"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="50dp"
+        android:textSize="20dp"/>
+    <TextView
+        android:layout_below="@+id/txtToPlace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="75dp"
+        android:layout_marginLeft="10dp"
+        android:text="Phương tiện: "
+        android:textSize="20dp"/>
+
+    <EditText
+        android:id="@+id/edtVehicle"
+        android:layout_below="@id/edtTimeTo"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="5dp"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:layout_below="@+id/edtVehicle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:text="Ghi chú: "
+        android:textSize="20dp"/>
+
+    <EditText
+        android:id="@+id/edtNote"
+        android:layout_below="@id/edtVehicle"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="5dp"
+        android:textSize="20dp"/>
+
+
+    <Button
+        android:id="@+id/btnAddSe"
+        android:layout_below="@id/edtVehicle"
+        android:layout_marginLeft="10dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:textSize="8dp"
+        android:background="@drawable/button2"
+        android:textColor="#ffffff"
+        android:layout_toRightOf="@id/edtNote"
+        android:text="Thêm"/>
+    <Button
+        android:id="@+id/btnCreateS"
+        android:layout_below="@id/edtNote"
+        android:layout_marginTop="20dp"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="200dp"
+        android:textColor="#ffffff"
+        android:background="@drawable/button3"
+        android:text="Xong"/>
+</RelativeLayout>

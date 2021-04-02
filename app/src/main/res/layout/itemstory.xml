@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="50dp"
@@ -10,25 +10,24 @@
         android:id="@+id/favatar"
         android:layout_width="46dp"
         android:layout_marginLeft="2dp"
-        android:layout_marginTop="2dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:layout_height="76dp"
         app:cardCornerRadius="5dp">
         <ImageView
             android:id="@+id/imagestr"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/userStory"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="57dp"
+            android:layout_marginLeft="12dp"
+            app:civ_border_color="#76C8ff"
+            app:civ_border_width="0.5dp"
+            android:src="@drawable/nen21"/>
     </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/txttaikhoan"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="-20dp"
-        android:layout_marginLeft="20dp"
-        android:text="t"
-        android:layout_centerHorizontal="true"/>
-    <TextView
-        android:id="@+id/txtngaygio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-</LinearLayout>
+</RelativeLayout>

@@ -266,6 +266,7 @@ public class PersonPage extends AppCompatActivity {
                     tvSchoolprf.setText(u.getsStudy());
                     tvBirthprf.setText(u.getsDateBirth());
                     tvRelaprf.setText(u.getsRelation());
+                    tvAdressprf.setText(u.getsAdrress());
                     imgcover.setImageBitmap(StringToBitMap(u.getsImageC()));
                     avatarProfile.setImageBitmap(StringToBitMap(u.getsImageA()));
                 }else {

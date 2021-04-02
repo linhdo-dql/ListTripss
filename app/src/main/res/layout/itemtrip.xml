@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/edt7"
+    android:layout_marginTop="20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+   <androidx.cardview.widget.CardView
+       android:id="@+id/cardview"
+       android:layout_width="300dp"
+       android:layout_height="150dp"
+       app:cardCornerRadius="20dp"
+       android:layout_marginTop="15dp"
+       android:layout_marginLeft="10dp">
+    <ImageView
+        android:id="@+id/imagetrip"
+        android:layout_width="match_parent"
+        android:scaleType="centerCrop"
+        android:layout_height="match_parent"
+        android:src="@drawable/nen21"
+        />
+   </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_below="@id/cardview"
+        android:id="@+id/txtNameTrip"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tên chuyến đi"
+        android:textSize="20dp"
+        android:layout_marginLeft="10dp"
+        />
+    <ImageView
+        android:id="@+id/icon1"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/outline_today_24"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@id/txtNameTrip"/>
+    <TextView
+        android:id="@+id/txtTime"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:textSize="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/icon1"
+        android:layout_below="@id/txtNameTrip"
+        android:text="Thời gian" />
+    <TextView
+        android:id="@+id/txtCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/txtAmout"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@id/txtNameTrip"
+        android:layout_marginTop="7dp"
+        android:textSize="15dp"
+        android:text="Chi phí" />
+    <ImageView
+        android:id="@+id/icon2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/outline_groups_24"
+        android:layout_toRightOf="@id/txtTime"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@id/txtNameTrip"/>
+
+    <TextView
+        android:id="@+id/txtAmout"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtNameTrip"
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="15dp"
+        android:layout_toRightOf="@id/icon2"
+        />
+
+    <TextView
+        android:id="@+id/txtTimeAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="210dp"
+        android:textSize="20dp"
+        android:text="Thời gian lập chuyến đi"
+        android:visibility="invisible"/>
+    <TextView
+        android:id="@+id/txtAddS"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtTime"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#76C8FF"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:fontFamily="@font/robotocondensedbold"
+        android:textStyle="italic"
+        android:textSize="15dp"
+        android:layout_marginBottom="10dp"
+        android:text="Lịch trình"/>
+
+</RelativeLayout>

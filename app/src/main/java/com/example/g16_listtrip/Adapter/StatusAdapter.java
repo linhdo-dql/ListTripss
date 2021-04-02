@@ -322,10 +322,16 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.StatusView
             mdata.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    USER user = snapshot.getValue(USER.class);
-                    tvName.setText(user.getsName());
-                    imgA.setImageBitmap(StringToBitMap(user.getsImageA()));
-                    notifyDataSetChanged();
+                    if(snapshot.exists()) {
+                        USER user = snapshot.getValue(USER.class);
+                        tvName.setText(user.getsName());
+                        imgA.setImageBitmap(StringToBitMap(user.getsImageA()));
+                        notifyDataSetChanged();
+                    }
+                    else {
+                        tvName.setText(MainActivity.nameAcc);
+                        imgA.setBackgroundResource(R.mipmap.linkavatar);
+                    }
                 }
 
                 @Override

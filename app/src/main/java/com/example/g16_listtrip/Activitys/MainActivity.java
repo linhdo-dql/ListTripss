@@ -1,63 +1,63 @@
  package com.example.g16_listtrip.Activitys;
 
  import android.annotation.SuppressLint;
- import android.app.Dialog;
- import android.content.Intent;
- import android.graphics.Bitmap;
- import android.graphics.BitmapFactory;
- import android.graphics.Color;
- import android.graphics.drawable.ColorDrawable;
- import android.net.Uri;
- import android.os.Build;
- import android.os.Bundle;
- import android.provider.MediaStore;
- import android.util.Base64;
- import android.view.MenuItem;
- import android.view.View;
- import android.widget.Button;
- import android.widget.EditText;
- import android.widget.ImageButton;
- import android.widget.ImageView;
- import android.widget.PopupMenu;
- import android.widget.RelativeLayout;
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
- import androidx.annotation.NonNull;
- import androidx.annotation.Nullable;
- import androidx.annotation.RequiresApi;
- import androidx.appcompat.app.AppCompatActivity;
- import androidx.appcompat.widget.Toolbar;
- import androidx.viewpager.widget.ViewPager;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
 
- import com.example.g16_listtrip.Adapter.PrimaryGraphicAdapter;
- import com.example.g16_listtrip.Adapter.StatusAdapter;
- import com.example.g16_listtrip.DoiTuong.Status;
- import com.example.g16_listtrip.DoiTuong.USER;
- import com.example.g16_listtrip.R;
- import com.google.android.material.tabs.TabLayout;
- import com.google.firebase.database.DataSnapshot;
- import com.google.firebase.database.DatabaseError;
- import com.google.firebase.database.DatabaseReference;
- import com.google.firebase.database.FirebaseDatabase;
- import com.google.firebase.database.ValueEventListener;
+import com.example.g16_listtrip.Adapter.PrimaryGraphicAdapter;
+import com.example.g16_listtrip.DoiTuong.Status;
+import com.example.g16_listtrip.DoiTuong.USER;
+import com.example.g16_listtrip.R;
+import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
- import java.io.ByteArrayOutputStream;
- import java.io.IOException;
- import java.text.SimpleDateFormat;
- import java.util.Calendar;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
- import gun0912.tedbottompicker.TedBottomPicker;
+import gun0912.tedbottompicker.TedBottomPicker;
 
 public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 123;
     TabLayout tabLayout;
     Toolbar toolbar;
     ImageButton btnphoto,btntakept,btnaddlocation;
-    ImageView avatar;
+    ImageView avatar, imgSttReview, avatarAccStt;
+    TextView tvAccStt;
     String imgStt = "";
     Button btnaddStt;
     EditText edtstt, edtlocation;
     RelativeLayout upStt;
-    StatusAdapter adapter;
     DatabaseReference databaseReference;
     String stt = "", loc = "", datetimeStt ="";
     public static String nameAcc = "";
@@ -161,8 +161,12 @@ public class MainActivity extends AppCompatActivity {
         btnphoto = (ImageButton) diaupsst.findViewById(R.id.btnAddImgStt);
         btnaddlocation = (ImageButton) diaupsst.findViewById(R.id.btnaddLocation);
         edtstt = (EditText) diaupsst.findViewById(R.id.edtStt);
+        tvAccStt = (TextView) diaupsst.findViewById(R.id.tvTkStt);
+        imgSttReview = (ImageView) diaupsst.findViewById(R.id.imagSttReview);
+        avatarAccStt = (ImageView) diaupsst.findViewById(R.id.avtStt);
         edtlocation = (EditText) diaupsst.findViewById(R.id.edtlocation);
         btnaddStt = (Button) diaupsst.findViewById(R.id.btnAddStt);
+        getAvatar();
         btntakept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -177,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onImageSelected(Uri uri) {
                         try {
                             Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                            imgSttReview.setImageBitmap(bitmap);
                             imgStt = convertBitmapToString(bitmap);
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -218,7 +223,6 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                                 diaupsst.dismiss();
-                                adapter.notifyDataSetChanged();
                             }
                         });
 
@@ -262,6 +266,8 @@ public class MainActivity extends AppCompatActivity {
                 if(snapshot.exists()) {
                     USER user = snapshot.getValue(USER.class);
                     avatar.setImageBitmap(StringToBitMap(user.getsImageA()));
+                    avatarAccStt.setImageBitmap(StringToBitMap(user.getsImageA()));
+                    tvAccStt.setText(user.getsName());
                 }
             }
 

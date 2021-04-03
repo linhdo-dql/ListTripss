@@ -1,5 +1,6 @@
 package com.example.g16_listtrip.Activitys;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -85,12 +86,11 @@ public class Trips extends Fragment {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
                         new DatePickerDialog.OnDateSetListener() {
 
+                            @SuppressLint("SetTextI18n")
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
-
-                                edtTimeIntend.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
-
+                               edtTimeIntend.setText(new StringBuilder().append(year).append("-").append(monthOfYear>9?(monthOfYear+1):"0"+(monthOfYear+1)).append("-").append(dayOfMonth>9?dayOfMonth:"0"+dayOfMonth).append(" 00:00:00"));
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();

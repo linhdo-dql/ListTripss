@@ -3,7 +3,9 @@ package com.example.g16_listtrip.Activitys;
 import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -55,7 +57,7 @@ public class PersonPage extends AppCompatActivity {
     String imgA = "", imgC = "";
     public ImageView imgcover;
     public ImageView avatarProfile;
-    Button btnAddprofile, btnExit;
+    Button btnAddprofile;
     EditText edtName, edtBirth, edtJob, edtAdress, edtStudy, edtRelationship;
     TextView tvNamePrf, tvAdressprf, tvJobprf, tvRelaprf, tvSchoolprf, tvBirthprf;
     @Override
@@ -195,6 +197,7 @@ public class PersonPage extends AppCompatActivity {
         Log.e("a",imgA);
         Dialog dia = new Dialog(PersonPage.this);
         dia.setContentView(R.layout.dia_newprf);
+        dia.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         edtName = dia.findViewById(R.id.etNameP);
         edtBirth = dia.findViewById(R.id.etDateBP);
         edtAdress = dia.findViewById(R.id.etAdreesB);
@@ -209,7 +212,6 @@ public class PersonPage extends AppCompatActivity {
                 editProfile();
             }
         });
-        btnExit = dia.findViewById(R.id.btnExitADDpro);
     }
     public void editMyprf(View view) {
         Dia_Add_Profile();

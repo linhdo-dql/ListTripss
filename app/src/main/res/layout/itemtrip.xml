@@ -3,31 +3,27 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/edt7"
-    android:layout_marginTop="20dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-   <androidx.cardview.widget.CardView
-       android:id="@+id/cardview"
-       android:layout_width="300dp"
-       android:layout_height="150dp"
-       app:cardCornerRadius="20dp"
+    android:layout_marginTop="20dp">
+   <com.makeramen.roundedimageview.RoundedImageView
+       xmlns:app="http://schemas.android.com/apk/res-auto"
+       android:id="@+id/imagetrip"
+       android:layout_width="340dp"
+       android:layout_height="170dp"
        android:layout_marginTop="15dp"
-       android:layout_marginLeft="10dp">
-    <ImageView
-        android:id="@+id/imagetrip"
-        android:layout_width="match_parent"
-        android:scaleType="centerCrop"
-        android:layout_height="match_parent"
-        android:src="@drawable/nen21"
-        />
-   </androidx.cardview.widget.CardView>
+       android:layout_marginLeft="10dp"
+       android:src="@drawable/nen21"
+       android:scaleType="centerCrop"
+       app:riv_corner_radius="25dp"/>
 
     <TextView
-        android:layout_below="@id/cardview"
+        android:layout_below="@id/imagetrip"
         android:id="@+id/txtNameTrip"
         android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tên chuyến đi"
+        android:fontFamily="@font/font2black"
+        android:textColor="@color/defailtB"
+        android:text="Hạ Long Bay"
         android:textSize="20dp"
         android:layout_marginLeft="10dp"
         />
@@ -44,21 +40,37 @@
         android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
-        android:textSize="15dp"
+        android:textSize="16dp"
+        android:textColor="@color/defailtB"
+        android:fontFamily="@font/font2l"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/icon1"
         android:layout_below="@id/txtNameTrip"
-        android:text="Thời gian" />
+        android:text="3 ngày" />
     <TextView
-        android:id="@+id/txtCost"
+        android:id="@+id/txtTimeIntend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/txtAmout"
-        android:layout_marginLeft="20dp"
-        android:layout_below="@id/txtNameTrip"
-        android:layout_marginTop="7dp"
+        android:layout_marginLeft="45dp"
+        android:textColor="#0022FF"
+        android:fontFamily="@font/robotocondensedbolditalic"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/txtCost"
         android:textSize="15dp"
-        android:text="Chi phí" />
+        android:text="24-05-2021" />
+ <TextView
+     android:id="@+id/txtCost"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_toRightOf="@id/txtAmout"
+     android:layout_marginLeft="10dp"
+     android:layout_marginTop="10dp"
+     android:fontFamily="@font/robotocondensedbold"
+     android:layout_below="@id/imagetrip"
+     android:textColor="#ff0000"
+     android:textSize="18dp"
+     android:text="1.500.000 đ/người" />
     <ImageView
         android:id="@+id/icon2"
         android:layout_width="30dp"
@@ -66,7 +78,7 @@
         android:background="@drawable/outline_groups_24"
         android:layout_toRightOf="@id/txtTime"
         android:layout_marginTop="3dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="26dp"
         android:layout_below="@id/txtNameTrip"/>
 
     <TextView
@@ -74,9 +86,12 @@
         android:layout_width="25dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/txtNameTrip"
-        android:layout_marginTop="7dp"
-        android:layout_marginLeft="10dp"
-        android:textSize="15dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="3"
+        android:fontFamily="@font/font2b"
+        android:layout_marginLeft="5dp"
+        android:textSize="16dp"
         android:layout_toRightOf="@id/icon2"
         />
 
@@ -84,24 +99,37 @@
         android:id="@+id/txtTimeAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="210dp"
+        android:layout_marginTop="230dp"
         android:textSize="20dp"
         android:text="Thời gian lập chuyến đi"
         android:visibility="invisible"/>
+    <RelativeLayout
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtTimeAdd"
+        android:gravity="center_horizontal"
+        android:background="@drawable/edt7">
+    <ImageView
+        android:id="@+id/icon4"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/round_menu_book_20"/>
     <TextView
         android:id="@+id/txtAddS"
-        android:layout_width="75dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtTime"
-        android:layout_marginLeft="12dp"
+        android:layout_marginLeft="2dp"
         android:layout_marginTop="10dp"
         android:textColor="#76C8FF"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:fontFamily="@font/robotocondensedbold"
         android:textStyle="italic"
-        android:textSize="15dp"
+        android:textSize="16dp"
+        android:layout_toRightOf="@id/icon4"
         android:layout_marginBottom="10dp"
-        android:text="Lịch trình"/>
+        android:text="@string/l_ch_tr_nh"/>
+    </RelativeLayout>
 
 </RelativeLayout>

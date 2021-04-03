@@ -2,19 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="wrap_content">
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/avtStt"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/nen"/>
+        android:src="@drawable/nen"/>
     <TextView
         android:id="@+id/tvTkStt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="15dp"
-        android:text="Hoàng Long"
         android:layout_toRightOf="@id/avtStt"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="15dp"
@@ -38,37 +37,43 @@
         android:lines="10"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@drawable/edt8"
+        android:background="@drawable/edt9"
         />
     <ImageButton
         android:id="@+id/btnTakeImage"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:background="@mipmap/takephotostt"
         android:layout_below="@id/edtStt"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="10dp"/>
     <ImageButton
         android:id="@+id/btnAddImgStt"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:background="@mipmap/addphotostt"
         android:layout_below="@id/edtStt"
         android:layout_toRightOf="@id/btnTakeImage"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="40dp"
         android:layout_marginTop="15dp"
         />
     <ImageButton
         android:id="@+id/btnaddLocation"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:background="@mipmap/addlocation"
         android:layout_below="@id/edtStt"
         android:layout_toRightOf="@id/btnAddImgStt"
         android:layout_marginTop="15dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="40dp"
         />
+    <ImageView
+        android:id="@+id/imagSttReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edtStt"
+        android:layout_centerHorizontal="true"/>
     <EditText
         android:id="@+id/edtlocation"
         android:layout_width="100dp"
@@ -77,7 +82,7 @@
         android:textSize="10sp"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/btnAddImgStt"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="40dp"
         android:layout_below="@id/edtStt"
         android:gravity="bottom"
         android:visibility="invisible"
@@ -91,8 +96,7 @@
         android:textAllCaps="false"
         android:textColor="#ffffff"
         android:layout_marginTop="10dp"
-        android:background="@drawable/button"
-        android:layout_below="@id/edtStt"
+        android:background="@drawable/button3"
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"/>
 </RelativeLayout>
